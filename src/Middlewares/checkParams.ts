@@ -7,7 +7,7 @@ export const CheckParams = ({ parameters }: Props) => {
 		const bodyObj = req.body || {}
 		for (let index = 0; index < parameters.length; index++) {
 			if (!bodyObj[parameters[index]]) {
-				return res.status(400).json({ error: 'missing parameters' })
+				return res.status(400).json({ message: 'missing parameters' })
 			}
 		}
 		return next()

@@ -10,12 +10,11 @@ custom:
     stages:
       - dev
     start:
-      port: 8000
-      inMemory: true
       migrate: true
 provider:
   name: aws
   runtime: nodejs14.x
+  region: us-east-1
   iam:
     role:
       statements:
@@ -28,7 +27,7 @@ provider:
             - dynamodb:UpdateItem
             - dynamodb:DeleteItem
           Resource:
-            - Fn::GetAtt: [ PeopleTable, Arn ]
+            - { "Fn::GetAtt": ["PeopleTable", "Arn" ] }
   environment:
     PEOPLE_TABLE: ${self:custom.tableName}
 
@@ -38,20 +37,29 @@ functions:
     events:
     - http: ANY /
     - http: 'ANY {proxy+}'
-
+  getPeople:
+    handler: "./src/index.handler"
+    events:
+    - http: 'GET /people'
+  getOnePeople:
+    handler: "./src/index.handler"
+    events:
+    - http: 'GET /people/{proxy+}'
+  createPeople:
+    handler: "./src/index.handler"
+    events:
+    - http: 'POST /people'
 resources:
   Resources:
     PeopleTable:
       Type: AWS::DynamoDB::Table
       Properties:
+        TableName: ${self:custom.tableName}
+        BillingMode: PAY_PER_REQUEST
         AttributeDefinitions:
           - AttributeName: _id
             AttributeType: S
         KeySchema:
           - AttributeName: _id
             KeyType: HASH
-        ProvisionedThroughput:
-          ReadCapacityUnits: 1
-          WriteCapacityUnits: 1
-        BillingMode: PAY_PER_REQUEST
-        TableName: ${self:custom.tableName}
+        
