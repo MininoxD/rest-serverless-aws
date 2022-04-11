@@ -1,0 +1,75 @@
+{
+	"info": {
+		"_postman_id": "9c42ab15-cf99-40c5-9e63-d42890eeec71",
+		"name": "Serverless Swapi",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "People",
+			"item": [
+				{
+					"name": "Create People",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"_id\": \"78787\",\r\n  \"nombre\": \"Test User\",\r\n  \"anio_nacimiento\": \"1666\",\r\n  \"color_ojos\": \"Brown\",\r\n  \"genero\": \"Male\",\r\n  \"color_pelo\": \"Black\",\r\n  \"altura\": \"185\",\r\n  \"peso\": \"90\",\r\n  \"color_piel\": \"fair\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/people",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"people"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get One People",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/people/1",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"people",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All People",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/people",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"people"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
